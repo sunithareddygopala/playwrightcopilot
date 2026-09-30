@@ -20,12 +20,13 @@ test('click on get started link and verify the new page opened', async({page})=>
 
 test('form interactions', async({page})=>{
 
-    await page.goto('https://www.w3schools.com/html/html_forms.asp');
+    await page.goto('https://the-internet.herokuapp.com/login')
 
-    await page.getByLabel('First name:').fill('sunitha');
+    await page.getByLabel('Username').fill('tomsmith');
 
-    await page.getByLabel('Last name:').fill('qa');
-    await page.getByRole('button',{name:'Submit'}).first().click();
+    await page.getByLabel('Password').fill('SuperSecretPassword!');
+    await page.getByRole('button',{name:'Login'}).click();
 
-    await expect(page).toHaveURL(/action_page/);
+    await expect(page).toHaveURL('https://the-internet.herokuapp.com/secure');
+    await expect(page.getByText('Secure Area', {exact:true})).toBeVisible()
 })
